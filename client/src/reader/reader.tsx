@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { Word } from '../states'
+import { useRecoilState } from 'recoil'
 
 type RegExpMatchArrayWithIndices = RegExpMatchArray & {
   indices: Array<[number, number]>
@@ -12,11 +14,13 @@ Another option you have is choosing the number of syllables of the words or the 
   )
 
   const [wordSelected, setWordSelected] = useState('')
+  const [word, setWord] = useRecoilState(Word)
 
   function wordSelectHandler(e: React.MouseEvent<HTMLElement>) {
     const target = e.target as HTMLElement
     if (target.classList.contains('word')) {
       setWordSelected(target.id)
+      setWord(target.innerHTML)
     }
   }
 
@@ -45,13 +49,17 @@ Another option you have is choosing the number of syllables of the words or the 
       }
     })
     return (
-      <div className="section" key={'s-' + idx}>
+      <div className="w-2/3 border-red-600 border-2 border-solid my-3" key={'s-' + idx}>
         {wordList}
       </div>
     )
-  })
+  })  
 
-  return <div onClick={wordSelectHandler}>{sectionList}</div>
+  return (
+    <div onClick={wordSelectHandler} className="flex flex-col items-center">
+      {sectionList}
+    </div>
+  )
 }
 
 // tokenize words
@@ -64,6 +72,7 @@ function wordSeparator(text: string) {
   while (flag) {
     const result = re.exec(text) as RegExpMatchArrayWithIndices
     if (result !== null) {
+      // fill in the gaps
       const indices = result.indices[0]
       tokens.push({
         type: 'fill',
@@ -78,6 +87,7 @@ function wordSeparator(text: string) {
       })
       idx = indices[1]
     } else {
+      // fill in the last elements
       tokens.push({
         type: 'fill',
         value: text.slice(idx),
