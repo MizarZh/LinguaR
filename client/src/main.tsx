@@ -4,7 +4,6 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import router from './router'
 import { RecoilRoot } from 'recoil'
-import Dictionary from './reader/dictionary'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

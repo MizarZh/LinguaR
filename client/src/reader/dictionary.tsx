@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Word } from '../states'
 import { useRecoilState } from 'recoil'
+import { freeDictionary } from './freedictionary'
 
 function Dictionary() {
-  const [explanation, setExplanation] = useState('')
-  const [word, setWord] = useRecoilState(Word)
+  const [explanation, setExplanation] = useState(<></>)
+  const [word] = useRecoilState(Word)
+
+  useEffect(() => {
+    freeDictionary(word).then((result) => {
+      setExplanation(result)
+    })
+  }, [word])
+
   return (
-    <div className="min-w-52 max-w-64 border border-black border-solid dict-height m-10">
+    <div className="w-72 dict-height fixed right-0 top-0 m-3 border border-black border-solid bg-white overflow-y-auto p-5">
       <h1>{word}</h1>
-      <div>E</div>
+      <div>{explanation}</div>
     </div>
   )
 }
