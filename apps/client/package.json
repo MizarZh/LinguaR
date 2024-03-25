@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "@linguar/client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,13 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.17",
+    "postcss-cli": "^11.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.1",
     "recoil": "^0.7.7",
-    "postcss-cli": "^11.0.0",
     "tailwindcss": "^3.4.1",
-    "autoprefixer": "^10.4.17"
+    "@linguar/server": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.2.55",

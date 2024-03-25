@@ -1,11 +1,19 @@
 {
-  "name": "LinguaR",
+  "name": "linguar",
   "version": "0.1.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently \"pnpm dev:client\" \"pnpm dev:server\"",
+    "dev:client": "cd ./apps/client && pnpm dev",
+    "dev:server": "cd ./apps/server && pnpm dev"
   },
   "keywords": [],
   "author": "MizarZh",
-  "license": "MIT"
+  "license": "MIT",
+  "workspaces": [
+    "./apps/*"
+  ],
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
